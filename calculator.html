@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <!-- Add the icon link -->
+    <link
+      rel="icon"
+      href="https://smallimg.pngkey.com/png/small/129-1290404_calculator-icon-png-image-ios-8-calculator-icon.png"
+      type="image/png"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .mainBody {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Adding shadow */
+        padding: 20px;
+      }
+
+      .textfield {
+        width: calc(90%);
+        height: calc(20%);
+        margin-bottom: 20px;
+        font-size: 18px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: none;
+      }
+
+      .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 5px;
+      }
+
+      .buttons button {
+        width: 100%;
+        height: 50px;
+        font-size: 18px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .buttons button:hover {
+        background-color: #0b6d0e;
+      }
+
+      .buttons .clear,
+      .buttons .delete {
+        grid-column: span 2;
+      }
+      .buttons .submit {
+        grid-column: span 4;
+      }
+
+      .buttons .delete {
+        background-color: #e0564c;
+      }
+      .buttons .delete:hover {
+        background-color: #e91b0c;
+      }
+      .buttons .submit {
+        background-color: rgb(97, 119, 191);
+      }
+      .buttons .submit:hover {
+        background-color: rgb(12, 51, 149);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainBody">
+      <!-- Disable manual input by setting the 'disabled' attribute -->
+      <textarea class="textfield" disabled></textarea>
+      <div class="buttons">
+        <button class="input">(</button>
+        <button class="input">)</button>
+        <button class="input">0</button>
+        <button class="input">/</button>
+        <button class="input">7</button>
+        <button class="input">8</button>
+        <button class="input">9</button>
+        <button class="input">*</button>
+        <button class="input">4</button>
+        <button class="input">5</button>
+        <button class="input">6</button>
+        <button class="input">-</button>
+        <button class="input">1</button>
+        <button class="input">2</button>
+        <button class="input">3</button>
+        <button class="input">+</button>
+        <button class="clear">MC</button>
+        <!-- The delete button remains enabled to allow removing characters -->
+        <button class="delete">&lt;</button>
+        <button class="submit">Submit</button>
+      </div>
+    </div>
+    <script>
+      var textarea = document.querySelector(".textfield");
+      var inputButtons = document.querySelectorAll(".input");
+      var submitBtn = document.querySelector(".submit");
+      var clearBtn = document.querySelector(".clear");
+      var deleteBtn = document.querySelector(".delete");
+
+      clearBtn.addEventListener("click", () => {
+        textarea.value = "";
+      });
+      inputButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          textarea.value += button.textContent; // Append button text to textarea
+        });
+      });
+
+      deleteBtn.addEventListener("click", () => {
+        textarea.value = textarea.value.slice(0, -1); // Remove the last character
+      });
+
+      submitBtn.addEventListener("click", () => {
+        // Get the arithmetic expression from the textarea
+        var expression = textarea.value;
+
+        // Evaluate the expression
+        var result;
+        try {
+          result = eval(expression); // Note: 'eval' is used here for simplicity, but be cautious about its usage in production.
+          // For security reasons, it's recommended to use a library like math.js to parse and evaluate expressions.
+        } catch (error) {
+          result = "Error"; // If an error occurs during evaluation
+        }
+
+        // Update the textarea with the result
+        textarea.value = result;
+      });
+    </script>
+  </body>
+</html>
